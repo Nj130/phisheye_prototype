@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "PhishEye Detector (Prototype)",
+  "version": "0.1.0",
+  "description": "Detect visual phishing by screenshot hashing + OCR before you enter credentials.",
+  "permissions": ["tabs", "activeTab", "scripting", "storage", "alarms"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "PhishEye"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {"resources": ["tesseract_worker.js","tesseract-core.wasm.js","phash.js"], "matches": ["<all_urls>"]}
+  ]
+}
